@@ -16,12 +16,14 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 3001;
 const databaseURL = process.env.DATABASE_URL;
-
-app.use(cors({
+const corConfig = {
     origin: [process.env.ORIGIN],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials:true,
-}))
+}
+
+app.options("",cors(corConfig))
+app.use(cors(corConfig))
 
 app.use('/uploads/profiles',express.static('uploads/profiles'))
 app.use('/uploads/posts',express.static('uploads/posts'))
